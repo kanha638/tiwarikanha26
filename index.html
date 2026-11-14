@@ -18,24 +18,35 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
-      <a class="brand" href="#top">Kanha Tiwari</a>
-      <details class="menu">
-        <summary>Menu</summary>
-        <nav aria-label="Primary">
+      <div class="header-bar">
+        <a class="brand" href="#top">
+          <span class="brand-mark" aria-hidden="true">KT</span>
+          <span class="brand-text">
+            <span class="brand-name">Kanha Tiwari</span>
+            <span class="brand-role">Software Developer</span>
+          </span>
+        </a>
+        <nav class="desktop-nav" aria-label="Primary">
           <a href="#skills">Skills</a>
           <a href="#work">Work</a>
           <a href="#project">Project</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </nav>
-      </details>
-      <nav class="desktop-nav" aria-label="Primary">
-        <a href="#skills">Skills</a>
-        <a href="#work">Work</a>
-        <a href="#project">Project</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
-      </nav>
+        <a class="header-cta" href="#contact">Get in touch</a>
+        <details class="menu">
+          <summary aria-label="Open menu">
+            <span class="menu-bars" aria-hidden="true"></span>
+          </summary>
+          <nav aria-label="Primary">
+            <a href="#skills">Skills</a>
+            <a href="#work">Work</a>
+            <a href="#project">Project</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </details>
+      </div>
     </header>
 
     <main id="main">
@@ -506,6 +517,47 @@
       </div>
     </footer>
     <script>
+      const siteHeader = document.querySelector(".site-header");
+      const menu = document.querySelector(".menu");
+      const navLinks = document.querySelectorAll(".desktop-nav a, .menu nav a");
+      const sections = ["skills", "work", "project", "about", "contact"]
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+
+      const markCurrent = (id) => {
+        navLinks.forEach((link) => {
+          if (link.getAttribute("href") === "#" + id) {
+            link.setAttribute("aria-current", "page");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      };
+
+      const sectionWatcher = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (visible) markCurrent(visible.target.id);
+        },
+        { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.25, 0.6] }
+      );
+
+      sections.forEach((section) => sectionWatcher.observe(section));
+
+      const onScroll = () => {
+        siteHeader.classList.toggle("is-scrolled", window.scrollY > 8);
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      menu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          menu.removeAttribute("open");
+        });
+      });
+
       const contactForm = document.getElementById("contact-form");
       const motionOk = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (motionOk) {
