@@ -148,6 +148,36 @@ a:hover {
   color: var(--green);
 }
 
+.header-social {
+  display: none;
+  flex: 1;
+  justify-content: space-evenly;
+  align-items: center;
+  min-width: 0;
+}
+
+.header-social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.88rem;
+  padding: 0.34rem 0.7rem;
+  border-radius: 999px;
+}
+
+.header-social a:hover {
+  background: rgba(18, 33, 28, 0.06);
+  color: var(--green);
+}
+
+.header-social svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  flex: none;
+}
+
 .desktop-nav {
   display: none;
   margin-left: auto;
@@ -297,6 +327,14 @@ a:hover {
 
 .menu nav a:hover {
   background: rgba(18, 33, 28, 0.05);
+}
+
+.menu-social {
+  display: grid;
+  gap: 0.15rem;
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--line);
 }
 
 .hero {
@@ -765,6 +803,16 @@ h3 {
 }
 
 @media (min-width: 980px) {
+  .header-social {
+    display: flex;
+  }
+
+  .desktop-nav {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 980px) {
   .role {
     grid-template-columns: 14rem 1fr;
     gap: 2rem;
@@ -800,6 +848,7 @@ h3 {
   .chips li,
   .hero-skills li,
   .desktop-nav a,
+  .header-social a,
   .header-cta,
   .header-bar {
     transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease;
