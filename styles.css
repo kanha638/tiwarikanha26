@@ -618,6 +618,101 @@ h3 {
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .hero-grid > * {
+    animation: rise 0.75s ease both;
+  }
+
+  .hero-grid > :nth-child(2) {
+    animation-delay: 0.12s;
+  }
+
+  .hero-grid > :nth-child(3) {
+    animation-delay: 0.22s;
+  }
+
+  .portrait img,
+  .button,
+  .card,
+  .skill-panel,
+  .project,
+  .chips li,
+  .hero-skills li,
+  .desktop-nav a::after {
+    transition: transform 0.25s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease;
+  }
+
+  .portrait:hover img {
+    transform: scale(1.05);
+  }
+
+  .button:hover {
+    transform: translateY(-2px);
+  }
+
+  .card:hover,
+  .skill-panel:hover,
+  .project:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+  }
+
+  .chips li:hover,
+  .hero-skills li:hover {
+    transform: translateY(-2px);
+    border-color: var(--green);
+  }
+
+  .desktop-nav a {
+    position: relative;
+  }
+
+  .desktop-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.3rem;
+    width: 100%;
+    height: 2px;
+    background: var(--green);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .desktop-nav a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease var(--delay, 0ms), transform 0.6s ease var(--delay, 0ms);
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+
+  .card.reveal.is-in:hover,
+  .skill-panel.reveal.is-in:hover,
+  .project.reveal.is-in:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 @media print {
   .site-header,
   .skip-link,

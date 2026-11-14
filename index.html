@@ -507,6 +507,24 @@
     </footer>
     <script>
       const contactForm = document.getElementById("contact-form");
+      const motionOk = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (motionOk) {
+        const pieces = document.querySelectorAll(".card, .skill-panel, .role, .project");
+        const watcher = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-in");
+            watcher.unobserve(entry.target);
+          });
+        }, { threshold: 0.12 });
+
+        pieces.forEach((piece, index) => {
+          piece.classList.add("reveal");
+          piece.style.setProperty("--delay", (index % 3) * 70 + "ms");
+          watcher.observe(piece);
+        });
+      }
+
       contactForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const data = new FormData(contactForm);
